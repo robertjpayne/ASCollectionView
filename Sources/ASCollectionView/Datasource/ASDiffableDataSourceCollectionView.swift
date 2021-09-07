@@ -40,18 +40,15 @@ class ASDiffableDataSourceCollectionView<SectionID: Hashable>: ASDiffableDataSou
 				self.currentSnapshot = .init(sections: newSections)
 			}
 		}
-		CATransaction.begin()
-		CATransaction.setCompletionBlock(completion)
 		if firstLoad || !animated
 		{
-			CATransaction.setDisableActions(true)
-			apply()
+		        UIView.performWithoutAnimation(apply)
 		}
 		else
 		{
 			apply()
 		}
-		CATransaction.commit()
+                completion?()
 		firstLoad = false
 	}
 
